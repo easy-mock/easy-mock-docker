@@ -1,0 +1,22 @@
+version: "3.3"
+services:
+  mongodb:
+    image: mongo:3.4
+    volumes:
+      - type: bind
+        source: ./data/db # 数据库文件存放地址，根据需要修改为本地地址
+        target: /data/db
+  web:
+    image: easymock/easymock:1.2.3
+    command: /bin/bash -c "npm run build && npm start"
+    links:
+      - mongodb:mongodb
+    ports:
+      - 7300:7300
+    volumes:
+      - type: bind 
+        source: ./logs # 日志地址，根据需要修改为本地地址
+        target: /home/easy-mock/easy-mock/logs
+      - type: bind
+        source: ./production.json # 配置地址，请使用本地配置地址替换
+        target: /home/easy-mock/easy-mock/config/production.json
