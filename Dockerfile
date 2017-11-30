@@ -28,8 +28,8 @@ RUN wget http://cdn.npm.taobao.org/dist/node/v8.4.0/node-v8.4.0-linux-x64.tar.gz
 USER easy-mock
 
 RUN mkdir easy-mock && \
-    wget https://github.com/easy-mock/easy-mock/archive/v1.3.3.tar.gz && \
-    tar -xzvf v1.3.3.tar.gz -C easy-mock --strip-components 1
+    wget https://github.com/easy-mock/easy-mock/archive/v1.3.6.tar.gz && \
+    tar -xzvf v1.3.6.tar.gz -C easy-mock --strip-components 1
 
 # npm install dependencies and run build
 WORKDIR /home/easy-mock/easy-mock

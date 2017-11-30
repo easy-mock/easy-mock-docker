@@ -9,7 +9,7 @@ services:
         source: ./data/db # 数据库文件存放地址，根据需要修改为本地地址
         target: /data/db
   web:
-    image: easymock/easymock:1.3.3
+    image: easymock/easymock:1.3.6
     command: /bin/bash -c "npm run build && npm start"
     links:
       - mongodb:mongodb
