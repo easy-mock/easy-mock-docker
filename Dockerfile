@@ -28,13 +28,15 @@ RUN wget http://cdn.npm.taobao.org/dist/node/v8.4.0/node-v8.4.0-linux-x64.tar.gz
 USER easy-mock
 
 RUN mkdir easy-mock && \
-    wget https://github.com/easy-mock/easy-mock/archive/v1.4.0.tar.gz && \
-    tar -xzvf v1.4.0.tar.gz -C easy-mock --strip-components 1
+    wget https://github.com/easy-mock/easy-mock/archive/v1.5.1.tar.gz && \
+    tar -xzvf v1.5.1.tar.gz -C easy-mock --strip-components 1
 
 # npm install dependencies and run build
 WORKDIR /home/easy-mock/easy-mock
 
 RUN jq '.db = "mongodb://mongodb/easy-mock"' config/default.json > config/tmp.json && \
     mv config/tmp.json config/default.json
+RUN jq '.redis = { port: 6379, host: "redis" }' config/default.json > config/tmp.json && \
+    mv config/tmp.json config/default.json
 
-RUN npm install
+RUN npm install && npm run build

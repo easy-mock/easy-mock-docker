@@ -6,9 +6,16 @@ services:
       - type: bind
         source: ./data/db # 数据库文件存放地址，根据需要修改为本地地址
         target: /data/db
+  redis:
+    image: redis:4.0.6
+    command: redis-server --appendonly yes
+    volumes:
+      - type: bind
+        source: ./data/redis # redis 数据文件存放地址，根据需要修改为本地地址
+        target: /data
   web:
-    image: easymock/easymock:1.4.0
-    command: /bin/bash -c "npm run build && npm start"
+    image: easymock/easymock:1.5.1
+    command: /bin/bash -c "npm start"
     links:
       - mongodb:mongodb
     ports:
