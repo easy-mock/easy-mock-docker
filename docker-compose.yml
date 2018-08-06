@@ -14,7 +14,7 @@ services:
         source: ./data/redis # redis 数据文件存放地址，根据需要修改为本地地址
         target: /data
   web:
-    image: easymock/easymock:1.5.1
+    image: easymock/easymock:1.6.0
     command: /bin/bash -c "npm start"
     links:
       - mongodb:mongodb
