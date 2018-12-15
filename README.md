@@ -20,6 +20,7 @@ services:
     command: /bin/bash -c "npm start"
     links:
       - mongodb:mongodb
+      - redis:redis
     ports:
       - 7300:7300
     volumes:
@@ -36,4 +37,28 @@ services:
 2. 新建文件 `docker-compose.yml` 并将上面 docker-compose 文件内容复制进入 `docker-compose.yml`，然后将内容中注释位置替换为自己需要的本地地址即可。主要有三个需要替换的地方，数据库文件存储位置，日志文件存储位置，自定义配置文件本地地址。
 3. 启动：`docker-compose up -d`
 
-自定义配置参考 [easymock readme](https://github.com/easy-mock/easy-mock) 中的配置小节，**注意，使用容器方式运行不需要指定 `db` 和 `redis` 参数**
+自定义配置参考 [easymock readme](https://github.com/easy-mock/easy-mock) 中的配置小节。
+
+**注意**
+* **使用容器方式运行不需要指定 `db` 和 `redis` 参数**
+* **production.json 配置中注意以下问题**
+
+```
+{
+  "port": 7300,
+  "host": "0.0.0.0",
+  "pageSize": 30,
+  "proxy": false,
+  "db": "mongodb://mongodb/easy-mock" # host 请务必替换为mongodb, 而非 localhost
+  "unsplashClientId": "",
+  "redis": {
+    "keyPrefix": "[Easy Mock]",
+    "port": 6379,
+    "host": "redis", // 请勿使用 localhost，换 "redis"
+    "password": "",
+    "db": 0
+  },
+  ......
+  ......
+}
+```
