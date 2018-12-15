@@ -20,6 +20,7 @@ services:
     command: /bin/bash -c "npm start"
     links:
       - mongodb:mongodb
+      - redis:redis
     ports:
       - 7300:7300
     volumes:
@@ -49,6 +50,14 @@ services:
   "pageSize": 30,
   "proxy": false,
   "db": "mongodb://mongodb/easy-mock" # host 请务必替换为mongodb, 而非 localhost
+  "unsplashClientId": "",
+  "redis": {
+    "keyPrefix": "[Easy Mock]",
+    "port": 6379,
+    "host": "redis", // 请勿使用 localhost，换 "redis"
+    "password": "",
+    "db": 0
+  },
   ......
   ......
 }
