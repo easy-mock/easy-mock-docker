@@ -18,6 +18,7 @@ services:
     command: /bin/bash -c "npm start"
     links:
       - mongodb:mongodb
+      - redis:redis
     ports:
       - 7300:7300
     volumes:
