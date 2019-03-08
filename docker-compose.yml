@@ -1,30 +1,35 @@
-version: "3.3"
+version: '3'
+
 services:
   mongodb:
     image: mongo:3.4
     volumes:
-      - type: bind
-        source: ./data/db # 数据库文件存放地址，根据需要修改为本地地址
-        target: /data/db
+      # ./data/db 数据库文件存放地址，根据需要修改为本地地址
+      - './data/db:/data/db'
+    networks:
+      - easy-mock
+
   redis:
     image: redis:4.0.6
     command: redis-server --appendonly yes
     volumes:
-      - type: bind
-        source: ./data/redis # redis 数据文件存放地址，根据需要修改为本地地址
-        target: /data
+      # ./data/redis redis 数据文件存放地址，根据需要修改为本地地址
+      - './data/redis:/data'
+    networks:
+      - easy-mock
+
   web:
     image: easymock/easymock:1.6.0
     command: /bin/bash -c "npm start"
-    links:
-      - mongodb:mongodb
-      - redis:redis
     ports:
       - 7300:7300
     volumes:
-      - type: bind 
-        source: ./logs # 日志地址，根据需要修改为本地地址
-        target: /home/easy-mock/easy-mock/logs
-      - type: bind
-        source: ./production.json # 配置地址，请使用本地配置地址替换
-        target: /home/easy-mock/easy-mock/config/production.json
+      # ./logs 日志地址，根据需要修改为本地地址
+      - './logs:/home/easy-mock/easy-mock/logs'
+      # ./production.json 配置地址，请使用本地配置地址替换
+      - './production.json:/home/easy-mock/easy-mock/config/production.json'
+    networks:
+      - easy-mock
+
+networks:
+  easy-mock:
