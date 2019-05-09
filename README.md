@@ -10,6 +10,7 @@ services:
       - './data/db:/data/db'
     networks:
       - easy-mock
+    restart: always
 
   redis:
     image: redis:4.0.6
@@ -19,19 +20,21 @@ services:
       - './data/redis:/data'
     networks:
       - easy-mock
+    restart: always
 
   web:
-    image: easymock/easymock:1.6.0
+    image: easymock/easymock:1.6.1
     command: /bin/bash -c "npm start"
     ports:
       - 7300:7300
     volumes:
-      # ./logs 日志地址，根据需要修改为本地地址
+      # 日志地址，根据需要修改为本地地址
       - './logs:/home/easy-mock/easy-mock/logs'
-      # ./production.json 配置地址，请使用本地配置地址替换
-      - './production.json:/home/easy-mock/easy-mock/config/production.json'
+      # 配置地址，请使用本地配置地址替换
+      # - './production.json:/home/easy-mock/easy-mock/config/production.json'
     networks:
       - easy-mock
+    restart: always
 
 networks:
   easy-mock:
