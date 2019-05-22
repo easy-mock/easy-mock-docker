@@ -23,7 +23,7 @@ services:
     restart: always
 
   web:
-    image: easymock/easymock:1.6.1
+    image: easymock/easymock:1.6.0
     command: /bin/bash -c "npm start"
     ports:
       - 7300:7300
