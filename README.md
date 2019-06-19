@@ -71,3 +71,11 @@ networks:
   ......
 }
 ```
+* **如果遇到 easymock docker 实例报文件权限错误**
+```
+Error: EACCES: permission denied....
+```
+**可在项目根目录执行以下命令**
+```
+chmod 777 /yourfile/logs
+```
